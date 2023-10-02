@@ -1,0 +1,8 @@
+Learning an adaptation function to assess image visual similarities: 
+https://github.com/VieVie31/visual-similarity/tree/main
+
+Totally Looks Like - How Humans Compare, Compared to Machines:
+https://github.com/rosenfeldamir/TotallyLooksLike/tree/master
+
+Kaggle link for nb on same dataset:
+https://www.kaggle.com/code/ruchi798/doppelvision-finding-the-image-twin
