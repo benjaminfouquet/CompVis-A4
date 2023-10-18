@@ -5,7 +5,7 @@ from PIL import Image
 from torch.utils.data import Dataset
 
 
-class ImagePairDataset(Dataset):
+class TrainDataset(Dataset):
     def __init__(
         self, true_pairs_csv, candidate_pairs_csv, left_dir, right_dir, transform=None
     ):
