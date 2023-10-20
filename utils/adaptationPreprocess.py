@@ -59,6 +59,7 @@ def merge_dicts_with_csv(csv_filename, dict_list):
                 left_data = csv_data[left_name]
                 right_name = left_data.get('right', None)
 
+
                 if right_name:
                     # Find the dictionary in the input list with the corresponding 'right_name'
                     matching_dict = next((d for d in dict_list if d.get('right_name') == right_name), None)
@@ -77,4 +78,48 @@ def merge_dicts_with_csv(csv_filename, dict_list):
                         result['right_name'].append(right_name)
     result['left'] = np.array(result['left'])
     result['right'] = np.array(result['right'])
+    return result
+
+
+def merge_test_dicts_with_csv(csv_filename, dict_list):
+    """
+    Create a dict containing all the data in the following format: {'left', 'right', 'left_name', 'right_name'}
+    """
+    result = {'data': [], 'left_name': [], 'right_name': []}
+
+    # Read the CSV file into a dictionary with left as the key
+    csv_data = {}
+    with open(csv_filename, 'r') as csvfile:
+        reader = csv.DictReader(csvfile)
+        for row in reader:
+            csv_data[row['left']] = row
+
+    for item in dict_list:
+        if 'left_name' in item:
+            left_name = item['left_name']
+            if left_name in csv_data:
+                left_data = csv_data[left_name]
+                
+                right_names = [left_data.get(f'c{i}', None) for i in range(20)]
+                for right_name in right_names:
+                    test_instance = {'left': [], 'right': [], 'left_name': [], 'right_name': []}
+                    if right_name:
+                        # Find the dictionary in the input list with the corresponding 'right_name'
+                        matching_dict = next((d for d in dict_list if d.get('right_name') == right_name), None)
+
+                        if matching_dict:
+                            # Merge the matching dictionary from the input list with the CSV dictionary
+                            merged_dict = {**left_data, **matching_dict}
+                            # Add the left and right image names
+                            merged_dict['left_image'] = left_name
+                            merged_dict['right_image'] = right_name
+
+                        test_instance['left'].append(matching_dict['right'])
+                        test_instance['right'].append(matching_dict['right'])
+                        test_instance['left_name'].append(left_name)
+                        test_instance['right_name'].append(right_name)
+                        print('bla', test_instance['left'][0].shape)
+                result['left_name'].append(left_name)
+                result['right_name'].append(right_names)
+                result['data'].append(test_instance)
     return result
