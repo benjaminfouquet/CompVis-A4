@@ -12,15 +12,14 @@ def create_paired_embeddings_dict(all_full_encodings, ALL_FILES_PATH, LEFT_FILES
     all_file_names = glob.glob(ALL_FILES_PATH)
     # Loop over all the file names to create a dict with the file names and the corresponding embeddings
     for index, file_name in enumerate(all_file_names):
-        base_name = file_name.split("/")[-1]  # Extract the filename from the path
-        prefix = base_name[:-4]  # Get the three letters before "jpg"
+        prefix = file_name[-7:-4]  # Get the three letters before "jpg"
         embeddings_dict[prefix] = all_full_encodings[index]
 
     left_file_names = glob.glob(LEFT_FILES_PATH)
-    left_images_names = [file_name.split("/")[-1][:-4] for file_name in left_file_names]
+    left_images_names = [file_name[-7:-4] for file_name in left_file_names]
 
     right_file_names = glob.glob(RIGHT_FILES_PATH)
-    right_images_names = [file_name.split("/")[-1][:-4] for file_name in right_file_names]
+    right_images_names = [file_name[-7:-4] for file_name in right_file_names]
 
     paired_embeddings = []
     # Loop over all the file names in embeddings_dict and check if the file is in left_file_names or right_file_names

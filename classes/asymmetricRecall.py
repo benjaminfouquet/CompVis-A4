@@ -22,3 +22,6 @@ class AsymmetricRecall:
         )
 
         return (sens1 | sens2).mean()
+    
+    def get_scores(self):
+        return -self.M

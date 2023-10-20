@@ -73,8 +73,6 @@ def validate(
     with torch.no_grad():
         left, right = valid_set["left"], valid_set["right"]
         out_left, out_right = model(left), model(right)
-        # print(type(left), type(right), type(out_left), type(out_right))
-        # print(left.shape, left)
         test_loss = loss_func(out_left, out_right, temperature, device)
 
         metrics = {"Test/Loss": test_loss.item()}
